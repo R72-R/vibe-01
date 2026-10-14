@@ -92,7 +92,25 @@
     }
 
     .item .text {
+      flex: 1;
       word-break: break-word;
+    }
+
+    .delete-btn {
+      flex: none;
+      margin-top: 1px;
+      padding: 2px 8px;
+      font-size: 13px;
+      color: #9aa0a6;
+      background: none;
+      border: 1px solid #e0e3e6;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      color: #c0392b;
+      border-color: #c0392b;
     }
 
     .item.done .text {
@@ -160,8 +178,17 @@
         span.className = "text";
         span.textContent = item.text;
 
+        var delBtn = document.createElement("button");
+        delBtn.type = "button";
+        delBtn.className = "delete-btn";
+        delBtn.textContent = "删除";
+        delBtn.addEventListener("click", function () {
+          deleteItem(index);
+        });
+
         li.appendChild(checkbox);
         li.appendChild(span);
+        li.appendChild(delBtn);
         list.appendChild(li);
       });
 
@@ -191,7 +218,22 @@
       render();
     }
 
+    function deleteItem(index) {
+      items.splice(index, 1);
+      saveItems();
+      render();
+    }
+
     addBtn.addEventListener("click", addItem);
+
+    input.addEventListener("keydown", function (e) {
+      if (e.isComposing) {
+        return;
+      }
+      if (e.key === "Enter") {
+        addItem();
+      }
+    });
 
     render();
   </script>
