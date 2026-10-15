@@ -37,6 +37,12 @@
       gap: 8px;
     }
 
+    .summary {
+      margin: 12px 0 0;
+      font-size: 14px;
+      color: #6b7280;
+    }
+
     #new-item {
       flex: 1;
       min-width: 0;
@@ -134,6 +140,8 @@
       <button id="add-btn">添加</button>
     </div>
 
+    <div id="summary" class="summary"></div>
+
     <ul id="list"></ul>
   </main>
 
@@ -143,6 +151,7 @@
     var input = document.getElementById("new-item");
     var addBtn = document.getElementById("add-btn");
     var list = document.getElementById("list");
+    var summary = document.getElementById("summary");
 
     var items = loadItems();
 
@@ -192,11 +201,24 @@
         list.appendChild(li);
       });
 
+      var doneCount = 0;
+      items.forEach(function (item) {
+        if (item.done) {
+          doneCount++;
+        }
+      });
+
       if (items.length === 0) {
+        summary.textContent = "";
+        summary.hidden = true;
+
         var tip = document.createElement("p");
         tip.className = "empty";
         tip.textContent = "还没有条目，在上面输入一条试试。";
         list.appendChild(tip);
+      } else {
+        summary.hidden = false;
+        summary.textContent = "已完成 " + doneCount + " / " + items.length + " 条";
       }
     }
 
