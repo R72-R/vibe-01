@@ -1,0 +1,14 @@
+# 依赖（本项目不用依赖，先占好位置避免以后误提交）
+node_modules/
+
+# 编辑器与系统文件
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+
+# 本地杂项
+*.log
+.env
